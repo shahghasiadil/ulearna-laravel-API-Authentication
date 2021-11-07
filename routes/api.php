@@ -23,48 +23,24 @@ use Illuminate\Support\Facades\Route;
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 Route::post('/register',[ApiAuthenticationController::class,'register']);
 
 Route::post('/login',[ApiAuthenticationController::class ,'login']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    Route::post('/logout',[ApiAuthenticationController::class,'logout']);
+   return $request->user();
+});
+
+Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/tags',[TagController::class ,'index']);
 Route::post('/tags',[TagController::class ,'store']);
 Route::put('tags/{id}', [TagController::class,'update']);
 Route::delete('tags/{id}',[TagController::class , 'destory']);
+
 });
+
+
+
+Route::post('/logout',[ApiAuthenticationController::class,'logout']);
 
 
